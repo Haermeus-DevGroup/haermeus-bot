@@ -1,5 +1,6 @@
 package dev.haermeus.haermeusbot.api;
 
+import dev.haermeus.haermeusbot.dto.resource.PlainResourceDTO;
 import dev.haermeus.haermeusbot.dto.section.PlainSectionDTO;
 
 import javax.ws.rs.GET;
@@ -16,6 +17,13 @@ public interface SectionsApi {
     @Produces("application/json")
     PlainSectionDTO getPlainSection(@QueryParam("id") long sectionId);
 
-    @Path("/children/resources")
+    @GET
+    @Path("/children/sections")
+    @Produces("application/json")
     List<PlainSectionDTO> getChildrenSections(@QueryParam("id") long sectionId);
+
+    @GET
+    @Path("/children/resources")
+    @Produces("application/json")
+    List<PlainResourceDTO> getChildrenResources(@QueryParam("id") long sectionId);
 }

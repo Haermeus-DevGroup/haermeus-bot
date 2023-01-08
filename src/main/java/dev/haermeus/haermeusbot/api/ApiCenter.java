@@ -10,7 +10,7 @@ public class ApiCenter {
     static ResourcesApi resourcesApi;
     static SectionsApi sectionsApi;
 
-    private final static String BASE_HOST = "http://localhost:8081";
+    private static final String BASE_HOST = "http://localhost:8081";
 
     private ApiCenter() {
     }
