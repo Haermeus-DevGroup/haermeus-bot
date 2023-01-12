@@ -23,6 +23,11 @@ public interface SectionsApi {
     List<PlainSectionDTO> getChildrenSections(@QueryParam("id") long sectionId);
 
     @GET
+    @Path("/roots")
+    @Produces("application/json")
+    List<PlainSectionDTO> getRootSections();
+
+    @GET
     @Path("/children/resources")
     @Produces("application/json")
     List<PlainResourceDTO> getChildrenResources(@QueryParam("id") long sectionId);
