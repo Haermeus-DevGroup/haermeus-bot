@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PlainResourceDTO {
 
-    private String title;
     private Long id;
+    private Long parentId;
+    private String title;
 
 }

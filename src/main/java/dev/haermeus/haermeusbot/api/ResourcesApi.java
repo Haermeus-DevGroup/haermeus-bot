@@ -1,5 +1,6 @@
 package dev.haermeus.haermeusbot.api;
 
+import dev.haermeus.haermeusbot.dto.resource.FullResourceDTO;
 import dev.haermeus.haermeusbot.dto.resource.PlainResourceDTO;
 
 import javax.ws.rs.GET;
@@ -14,4 +15,9 @@ public interface ResourcesApi {
     @Path("/plain")
     @Produces("application/json")
     PlainResourceDTO getPlainResource(@QueryParam("id") long resourceId);
+
+    @GET
+    @Path("/full")
+    @Produces("application/json")
+    FullResourceDTO getFullResource(@QueryParam("id") long resourceId);
 }
