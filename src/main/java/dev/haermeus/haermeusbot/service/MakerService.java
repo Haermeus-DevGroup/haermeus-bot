@@ -33,7 +33,11 @@ public class MakerService {
     }
 
     public static InlineKeyboardMarkup makeBackButtonInlineKeyboardMarkup(String callbackData) {
-        return null;
+        return InlineKeyboardMarkup.builder()
+                .keyboardRow(
+                        List.of(makeBackButton(callbackData))
+                )
+                .build();
     }
 
     public static InlineKeyboardButton makeBackButton(String callbackData) {
