@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MakerService {
 
@@ -28,7 +29,11 @@ public class MakerService {
     }
 
     public static List<List<InlineKeyboardButton>> makeInlineKeyboardFromResources(PlainSectionDTO section, List<PlainResourceDTO> childResources) {
-        return null;
+        var keyboard = childResources.stream()
+                .map(resourceDTO -> List.of(makeInlineKeyboardButton(resourceDTO)))
+                .collect(Collectors.toList());
+        keyboard.add(List.of(makeBackButton("section " + section.getParentId().toString())));
+        return keyboard;
     }
 
     public static InlineKeyboardButton makeInlineKeyboardButton(PlainResourceDTO resource) {
