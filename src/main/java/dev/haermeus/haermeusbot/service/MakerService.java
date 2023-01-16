@@ -48,6 +48,15 @@ public class MakerService {
     }
 
     public static InlineKeyboardMarkup makeRootsInlineKeyboardMarkup(List<PlainSectionDTO> plainSections) {
-        return null;
+        var keyboardBuilder = InlineKeyboardMarkup.builder();
+        plainSections.forEach(
+                section -> keyboardBuilder.keyboardRow(List.of(
+                        InlineKeyboardButton.builder()
+                                .text(section.getTitle())
+                                .callbackData("section " + section.getId())
+                                .build()
+                ))
+        );
+        return keyboardBuilder.build();
     }
 }
