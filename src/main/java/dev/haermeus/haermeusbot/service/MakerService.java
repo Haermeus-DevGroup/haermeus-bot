@@ -37,7 +37,10 @@ public class MakerService {
     }
 
     public static InlineKeyboardButton makeBackButton(String callbackData) {
-        return null;
+        return InlineKeyboardButton.builder()
+                .text("\uD83D\uDD19 Вернуться")
+                .callbackData(callbackData)
+                .build();
     }
 
     public static InlineKeyboardMarkup makeRootsInlineKeyboardMarkup(List<PlainSectionDTO> plainSections) {
