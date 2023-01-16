@@ -29,7 +29,10 @@ public class MakerService {
     }
 
     public static InlineKeyboardButton makeInlineKeyboardButton(PlainResourceDTO resource) {
-        return null;
+        return InlineKeyboardButton.builder()
+                .text(resource.getTitle())
+                .callbackData("resource " + resource.getId())
+                .build();
     }
 
     public static InlineKeyboardMarkup makeBackButtonInlineKeyboardMarkup(String callbackData) {
