@@ -14,7 +14,17 @@ public class MakerService {
     }
 
     public static InlineKeyboardMarkup makeSectionInlineKeyboardMarkup(PlainSectionDTO section, List<PlainSectionDTO> childSections, List<PlainResourceDTO> childResources) {
-        return null;
+        if (!childResources.isEmpty()) {
+            return InlineKeyboardMarkup.builder()
+                    .keyboard(makeInlineKeyboardFromResources(section, childResources))
+                    .build();
+        } else if (!childSections.isEmpty()) {
+            return InlineKeyboardMarkup.builder()
+                    .keyboard(makeInlineKeyboardFromSections(section, childSections))
+                    .build();
+        } else {
+            return makeBackButtonInlineKeyboardMarkup("section " + section.getParentId().toString());
+        }
     }
 
     public static List<List<InlineKeyboardButton>> makeInlineKeyboardFromSections(PlainSectionDTO section, List<PlainSectionDTO> childSections) {
