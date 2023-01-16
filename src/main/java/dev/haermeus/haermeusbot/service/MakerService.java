@@ -21,7 +21,10 @@ public class MakerService {
     }
 
     public static InlineKeyboardButton makeInlineKeyboardButton(PlainSectionDTO section) {
-        return null;
+        return InlineKeyboardButton.builder()
+                .text(section.getTitle())
+                .callbackData("section " + section.getId())
+                .build();
     }
 
     public static List<List<InlineKeyboardButton>> makeInlineKeyboardFromResources(PlainSectionDTO section, List<PlainResourceDTO> childResources) {
