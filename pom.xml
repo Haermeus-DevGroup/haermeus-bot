@@ -48,12 +48,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf</artifactId>
-            <version>3.3.4</version>
-            <type>pom</type>
-        </dependency>
 
     </dependencies>
 </project>
