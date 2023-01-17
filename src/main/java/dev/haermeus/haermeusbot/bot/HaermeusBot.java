@@ -12,6 +12,8 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import static dev.haermeus.haermeusbot.service.MakerService.*;
+
 @Slf4j(topic = "[bot]")
 public class HaermeusBot extends TelegramLongPollingBot {
 
@@ -100,6 +102,24 @@ public class HaermeusBot extends TelegramLongPollingBot {
             execute(new AnswerCallbackQuery(callback.getId()));
         } catch (TelegramApiException e) {
             log.error("Cannot process section callback {}", callback, e);
+        }
+    }
+
+    private void processResourceCallback(CallbackQuery callback) {
+        var resourceId = Long.parseLong(callback.getData().split(" ")[1]);
+        var resource = resourcesApi.getFullResource(resourceId);
+        var response = EditMessageText.builder()
+                .chatId(callback.getMessage().getChatId())
+                .messageId(callback.getMessage().getMessageId())
+                .inlineMessageId(callback.getInlineMessageId())
+                .text(resource.getContent())
+                .replyMarkup(makeBackButtonInlineKeyboardMarkup("section " + resource.getParentId().toString()))
+                .build();
+        try {
+            execute(response);
+            execute(new AnswerCallbackQuery(callback.getId()));
+        } catch (TelegramApiException e) {
+            log.error("Cannot process resource callback {}", callback, e);
         }
     }
 
