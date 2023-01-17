@@ -6,6 +6,7 @@ import dev.haermeus.haermeusbot.api.SectionsApi;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -55,7 +56,17 @@ public class HaermeusBot extends TelegramLongPollingBot {
     }
 
     private void processCallbackQuery(Update update) {
-
+        log.info("Start processing callback query {}", update.getCallbackQuery());
+        CallbackQuery callback = update.getCallbackQuery();
+        if (callback.getData().startsWith("section")) {
+            processSectionCallback(callback);
+        }
+        else if (callback.getData().startsWith("resource")) {
+            processResourceCallback(callback);
+        }
+        else {
+            log.error("Unknown callback {}", callback);
+        }
     }
 
 }
