@@ -5,7 +5,9 @@ import dev.haermeus.haermeusbot.api.ResourcesApi;
 import dev.haermeus.haermeusbot.api.SectionsApi;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j(topic = "[bot]")
 public class HaermeusBot extends TelegramLongPollingBot {
@@ -38,7 +40,18 @@ public class HaermeusBot extends TelegramLongPollingBot {
     }
 
     private void processMessage(Update update) {
-
+        log.info("Start processing message {}", update.getMessage());
+        try {
+            var response = SendMessage.builder()
+                    .chatId(update.getMessage().getChatId())
+                    .text("Корневой каталог")
+                    .replyMarkup(makeRootsInlineKeyboardMarkup(sectionsApi.getRootSections()))
+                    .build();
+            execute(response);
+        }
+        catch (TelegramApiException e) {
+            log.error("Cannot process message {}", update, e);
+        }
     }
 
     private void processCallbackQuery(Update update) {
