@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import static dev.haermeus.haermeusbot.service.MakerService.*;
+import static dev.haermeus.haermeusbot.service.HeadingsFormatterService.*;
 
 @Slf4j(topic = "[bot]")
 public class HaermeusBot extends TelegramLongPollingBot {
@@ -49,7 +50,7 @@ public class HaermeusBot extends TelegramLongPollingBot {
         try {
             var response = SendMessage.builder()
                     .chatId(update.getMessage().getChatId())
-                    .text("Корневой каталог")
+                    .text(formatSectionTitle("Корневой каталог"))
                     .replyMarkup(makeRootsInlineKeyboardMarkup(sectionsApi.getRootSections()))
                     .build();
             execute(response);
@@ -81,7 +82,7 @@ public class HaermeusBot extends TelegramLongPollingBot {
                     .chatId(callback.getMessage().getChatId())
                     .messageId(callback.getMessage().getMessageId())
                     .inlineMessageId(callback.getInlineMessageId())
-                    .text("Корневой каталог")
+                    .text(formatSectionTitle("Корневой каталог"))
                     .replyMarkup(makeRootsInlineKeyboardMarkup(sectionsApi.getRootSections()))
                     .build();
         }
@@ -93,7 +94,7 @@ public class HaermeusBot extends TelegramLongPollingBot {
                     .chatId(callback.getMessage().getChatId())
                     .messageId(callback.getMessage().getMessageId())
                     .inlineMessageId(callback.getInlineMessageId())
-                    .text(section.getTitle())
+                    .text(formatSectionTitle(section.getTitle()))
                     .replyMarkup(makeSectionInlineKeyboardMarkup(section, childSections, childResources))
                     .build();
         }
@@ -122,5 +123,6 @@ public class HaermeusBot extends TelegramLongPollingBot {
             log.error("Cannot process resource callback {}", callback, e);
         }
     }
+
 
 }
