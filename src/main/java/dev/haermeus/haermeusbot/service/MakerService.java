@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 
 import java.util.List;
 import java.util.stream.Collectors;
+import static dev.haermeus.haermeusbot.service.HeadingsFormatterService.*;
 
 public class MakerService {
 
@@ -37,7 +38,7 @@ public class MakerService {
 
     public static InlineKeyboardButton makeInlineKeyboardButton(PlainSectionDTO section) {
         return InlineKeyboardButton.builder()
-                .text(section.getTitle())
+                .text(formatSectionTitle(section.getTitle()))
                 .callbackData("section " + section.getId())
                 .build();
     }
@@ -52,7 +53,7 @@ public class MakerService {
 
     public static InlineKeyboardButton makeInlineKeyboardButton(PlainResourceDTO resource) {
         return InlineKeyboardButton.builder()
-                .text(resource.getTitle())
+                .text(formatResourceTitle(resource.getTitle()))
                 .callbackData("resource " + resource.getId())
                 .build();
     }
@@ -67,7 +68,7 @@ public class MakerService {
 
     public static InlineKeyboardButton makeBackButton(String callbackData) {
         return InlineKeyboardButton.builder()
-                .text("\uD83D\uDD19 Вернуться")
+                .text(formatBackTitle("Вернуться"))
                 .callbackData(callbackData)
                 .build();
     }
@@ -77,7 +78,7 @@ public class MakerService {
         plainSections.forEach(
                 section -> keyboardBuilder.keyboardRow(List.of(
                         InlineKeyboardButton.builder()
-                                .text(section.getTitle())
+                                .text(formatSectionTitle(section.getTitle()))
                                 .callbackData("section " + section.getId())
                                 .build()
                 ))
