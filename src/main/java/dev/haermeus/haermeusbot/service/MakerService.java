@@ -30,7 +30,7 @@ public class MakerService {
 
     public static List<List<InlineKeyboardButton>> makeInlineKeyboardFromSections(PlainSectionDTO section, List<PlainSectionDTO> childSections) {
         var keyboard = childSections.stream()
-                .map(sectionDTO -> List.of(makeInlineKeyboardButton(section)))
+                .map(sectionDTO -> List.of(makeInlineKeyboardButton(sectionDTO)))
                 .collect(Collectors.toList());
         keyboard.add(List.of(makeBackButton("section " + section.getParentId().toString())));
         return keyboard;
